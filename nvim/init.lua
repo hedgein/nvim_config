@@ -1,6 +1,6 @@
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
-vim.g.inlay_hints_visible = true
+--vim.g.inlay_hints_visible = true
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -50,6 +50,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>fc', function()
       vim.lsp.buf.format { async = true }
     end, opts)
+
+    vim.keymap.set('n', '<leader>L', 
+      function() 
+        if vim.lsp.inlay_hint.is_enabled() 
+        then vim.lsp.inlay_hint.enable(false, { bufnr }) 
+        else vim.lsp.inlay_hint.enable(true, { bufnr }) 
+        end 
+      end, opt)
+
 
   end,
 })
